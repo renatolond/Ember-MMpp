@@ -1,8 +1,25 @@
 <RCC>
     <qresource prefix="/icons/images">
-        <file>Resources/invalid.png</file>
-        <file>Resources/process.png</file>
-        <file>Resources/pages.png</file>
         <file>Resources/Logo.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>icons/16x16/info.png</file>
+        <file>icons/16x16/play.png</file>
+        <file>icons/16x16/refresh.png</file>
+        <file>Resources/actor_unknown.png</file>
+        <file>icons/16x16/cancel.png</file>
+        <file>icons/16x16/db.png</file>
+        <file>icons/16x16/editcopy.png</file>
+        <file>icons/16x16/folder-new.png</file>
+        <file>icons/16x16/help.png</file>
+        <file>icons/16x16/insert-image.png</file>
+        <file>icons/16x16/run.png</file>
+        <file>icons/16x16/exit.png</file>
+        <file>icons/16x16/update.png</file>
+        <file>icons/16x16/flag-yellow.png</file>
+        <file>icons/16x16/tooloptions.png</file>
+        <file>icons/16x16/db_remove.png</file>
+        <file>icons/16x16/build.png</file>
+        <file>icons/16x16/clear.png</file>
     </qresource>
 </RCC>

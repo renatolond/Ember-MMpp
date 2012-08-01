@@ -27,6 +27,8 @@ cMainWindow::cMainWindow(QWidget *parent) :
 {
   setWindowIcon(QIcon(":/icons/images/Resources/Logo.png"));
   ui->setupUi(this);
+
+  create_scrape_media_actions();
 }
 
 cMainWindow::~cMainWindow()
@@ -37,4 +39,69 @@ cMainWindow::~cMainWindow()
 void cMainWindow::on_actionExit_triggered()
 {
   this->close();
+}
+
+void cMainWindow::create_scrape_media_actions()
+{
+  QMenu *menu = new QMenu();
+
+  create_all_movies_menu(menu);
+  create_movies_missing_itens_menu(menu);
+  create_new_movies_menu(menu);
+  create_marked_movies_menu(menu);
+  create_current_filter_menu(menu);
+  // custom scraper
+
+  ui->toolButton->setMenu(menu);
+
+
+}
+
+void cMainWindow::create_all_movies_menu(QMenu *menu)
+{
+  QMenu *all_movies_menu = new QMenu("All Movies");
+  create_default_scraping_menu(all_movies_menu);
+  menu->addMenu(all_movies_menu);
+}
+
+void cMainWindow::create_movies_missing_itens_menu(QMenu *menu)
+{
+  QMenu *movies_missing_itens_menu = new QMenu("Movies Missing Items");
+  create_default_scraping_menu(movies_missing_itens_menu);
+  menu->addMenu(movies_missing_itens_menu);
+}
+
+void cMainWindow::create_new_movies_menu(QMenu *menu)
+{
+  QMenu *new_movies_menu = new QMenu("New Movies");
+  create_default_scraping_menu(new_movies_menu);
+  menu->addMenu(new_movies_menu);
+}
+
+void cMainWindow::create_marked_movies_menu(QMenu *menu)
+{
+  QMenu *marked_movies_menu = new QMenu("Marked Movies");
+  create_default_scraping_menu(marked_movies_menu);
+  menu->addMenu(marked_movies_menu);
+}
+
+void cMainWindow::create_current_filter_menu(QMenu *menu)
+{
+  QMenu *current_filter_menu = new QMenu("Current Filter");
+  create_default_scraping_menu(current_filter_menu);
+  menu->addMenu(current_filter_menu);
+}
+
+void cMainWindow::create_default_scraping_menu(QMenu *menu)
+{
+  QMenu *automatic = new QMenu("Automatic (Force Best Match)");
+  QAction *all_items = new QAction("All Items", this);
+  automatic->addAction(all_items);
+
+  QMenu *ask = new QMenu("Ask (Require Input If No Exact Match)");
+  all_items = new QAction("All Items", this);
+  ask->addAction(all_items);
+
+  menu->addMenu(automatic);
+  menu->addMenu(ask);
 }

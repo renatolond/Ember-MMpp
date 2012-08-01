@@ -40,6 +40,14 @@ private slots:
 
 private:
   Ui::uMainWindow *ui;
+
+  void create_scrape_media_actions(void);
+  void create_all_movies_menu(QMenu *menu);
+  void create_movies_missing_itens_menu(QMenu *menu);
+  void create_new_movies_menu(QMenu *menu);
+  void create_marked_movies_menu(QMenu *menu);
+  void create_current_filter_menu(QMenu *menu);
+  void create_default_scraping_menu(QMenu *menu);
 };
 
 #endif // MAINWINDOW_H
