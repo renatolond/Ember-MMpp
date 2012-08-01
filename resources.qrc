@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons/images">
+        <file>Resources/invalid.png</file>
+        <file>Resources/process.png</file>
+        <file>Resources/pages.png</file>
+        <file>Resources/Logo.png</file>
+    </qresource>
+</RCC>
