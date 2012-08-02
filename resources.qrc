@@ -21,5 +21,6 @@
         <file>icons/16x16/db_remove.png</file>
         <file>icons/16x16/build.png</file>
         <file>icons/16x16/clear.png</file>
+        <file>Resources/EmberSplashScreen.png</file>
     </qresource>
 </RCC>

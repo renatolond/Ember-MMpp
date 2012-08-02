@@ -48,6 +48,8 @@ private:
   void create_marked_movies_menu(QMenu *menu);
   void create_current_filter_menu(QMenu *menu);
   void create_default_scraping_menu(QMenu *menu);
+
+  void create_update_library_actions(void);
 };
 
 #endif // MAINWINDOW_H

@@ -20,6 +20,7 @@
  */
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "splashscreen.h"
 
 cMainWindow::cMainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -29,6 +30,10 @@ cMainWindow::cMainWindow(QWidget *parent) :
   ui->setupUi(this);
 
   create_scrape_media_actions();
+  create_update_library_actions();
+
+  cSplashScreen *splash = new cSplashScreen(this);
+  splash->show();
 }
 
 cMainWindow::~cMainWindow()
@@ -52,9 +57,7 @@ void cMainWindow::create_scrape_media_actions()
   create_current_filter_menu(menu);
   // custom scraper
 
-  ui->toolButton->setMenu(menu);
-
-
+  ui->scrapeMediaToolButton->setMenu(menu);
 }
 
 void cMainWindow::create_all_movies_menu(QMenu *menu)
@@ -104,4 +107,16 @@ void cMainWindow::create_default_scraping_menu(QMenu *menu)
 
   menu->addMenu(automatic);
   menu->addMenu(ask);
+}
+
+void cMainWindow::create_update_library_actions()
+{
+  QMenu *menu = new QMenu();
+
+  QAction *movies = new QAction("Movies", this);
+  menu->addAction(movies);
+  QAction *tv_shows = new QAction("TV Shows", this);
+  menu->addAction(tv_shows);
+
+  ui->updateLibraryToolButon->setMenu(menu);
 }

@@ -15,13 +15,16 @@ INCLUDEPATH += libs/boost
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    settings.cpp
+    settings.cpp \
+    splashscreen.cpp
 
 HEADERS  += mainwindow.h \
     settings.h \
-    databasemovie.h
+    databasemovie.h \
+    splashscreen.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    splashscreen.ui
 
 RESOURCES += \
     resources.qrc
