@@ -39,7 +39,7 @@ background-repeat: 'no-repeat'; }</string>
     <string>%p%</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="message_label">
    <property name="geometry">
     <rect>
      <x>10</x>

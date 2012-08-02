@@ -30,7 +30,6 @@ int main(int argc, char *argv[])
   sSettings::set_current_movie(m);
   QApplication a(argc, argv);
   cMainWindow w;
-  w.show();
   
   return a.exec();
 }

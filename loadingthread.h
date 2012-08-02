@@ -18,30 +18,30 @@
  * Ember Media Manager++.  If not, see <http://www.gnu.org/licenses/>.
  * -----------------------------------------------------------------------------
  */
-#ifndef SPLASHSCREEN_H
-#define SPLASHSCREEN_H
+#ifndef LOADINGTHREAD_H
+#define LOADINGTHREAD_H
 
-#include <QDialog>
+#include <QThread>
 
-namespace Ui {
-class cSplashScreen;
-}
-
-class cSplashScreen : public QDialog
+class cLoadingThread : public QObject
 {
   Q_OBJECT
-  
 public:
-  explicit cSplashScreen(QWidget *parent = 0);
-  ~cSplashScreen();
+  cLoadingThread(void);
+  ~cLoadingThread(void);
   
-  void show_message(QString msg);
-
+signals:
+  void finished(void);
+  void error(QString err);
+  void progress(QString msg, int progress);
+  void show_main(void);
+  void close_splash(void);
+  
 public slots:
-  void update_progress(QString msg, int progress);
+  void process(void);
 
 private:
-  Ui::cSplashScreen *ui;
+
 };
 
-#endif // SPLASHSCREEN_H
+#endif // LOADINGTHREAD_H
