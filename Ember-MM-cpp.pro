@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,13 +17,16 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     settings.cpp \
     splashscreen.cpp \
-    loadingthread.cpp
+    loadingthread.cpp \
+    filedownloader.cpp
 
 HEADERS  += mainwindow.h \
     settings.h \
     databasemovie.h \
     splashscreen.h \
-    loadingthread.h
+    loadingthread.h \
+    settingsitem.h \
+    filedownloader.h
 
 FORMS    += mainwindow.ui \
     splashscreen.ui

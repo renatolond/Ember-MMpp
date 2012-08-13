@@ -23,6 +23,8 @@
 
 #include <QThread>
 
+class cFileDownloader;
+
 class cLoadingThread : public QObject
 {
   Q_OBJECT
@@ -39,9 +41,10 @@ signals:
   
 public slots:
   void process(void);
+  void load_things(void);
 
 private:
-
+  cFileDownloader *m_downloader;
 };
 
 #endif // LOADINGTHREAD_H

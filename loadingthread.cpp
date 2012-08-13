@@ -20,6 +20,8 @@
  */
 #include "loadingthread.h"
 
+#include "filedownloader.h"
+
 cLoadingThread::cLoadingThread()
 {
 }
@@ -30,12 +32,74 @@ cLoadingThread::~cLoadingThread()
 
 void cLoadingThread::process()
 {
+  // See if any pending file needs to install. Do this before loading
+  // modules/themes/etc
   emit progress("Basic setup...", 10);
 
-  emit progress("Ok!", 100);
+  // Load modules?
+  // In EmberMM it runs modulesmanager and loads the API.
 
-  emit show_main();
-  emit close_splash();
+  // Backup old log
 
-  emit finished();
+  //advanced_settings.load_defaults -- clsAdvancedSettings.vb:337
+  //load advanced settings xml
+
+  //create modules and modules/lang folders
+
+  emit progress("Loading settings...", 20);
+  // load from Settings.xml
+
+  emit progress("Creating default options...", 30);
+  // Create default options
+  emit progress("Loading modules...", 40);
+
+  // runtime objects seems like they are dll's or something like that.
+  // MenuMediaList, MenuTVShowList, MediaList, TopMenu, MainTool, TrayMenu,
+  // DelegateLoadMedia, DelegateOpenImageViewer.
+  // load everything
+
+  // see isCL flag, for command-line. What is the best approach?
+
+  // load modules, external scrapers, external tv scrapers, then find out the
+  // versions from each, and load external languages for each one.
+
+  // loads the gui if isCL is false, something about double buffer? Maybe for
+  // previewing?
+
+  // Create temp dir
+
+  // if isCL, then loads all CL arguments. Think this should be moved to main
+
+  emit progress("Loading translations...", 50);
+
+  emit progress("Positioning controls...", 60);
+
+  // Here is where he position all the panels and main window. This can't be
+  // done here in the loading thread, as it cannot change the gui. But it should
+  // be able to emit a signal so that the GUI, now knowing the size, can take
+  // care of it
+
+  emit progress("Loading database...", 70);
+  QUrl xmlUrl("http://pcjco.dommel.be/emm-r/updates/commands_base.xml");
+  cFileDownloader *m_downloader = new cFileDownloader(xmlUrl, this);
+  connect(m_downloader, SIGNAL(downloaded()), SLOT(load_things()));
+}
+
+void cLoadingThread::load_things()
+{
+  //  {
+  //    //qDebug("Still running...");
+  //  }
+
+    int x = 5;
+
+
+    emit progress("Setting menus...", 80);
+
+    emit progress("Ok!", 100);
+
+  //  emit show_main();
+  //  emit close_splash();
+
+    //  emit finished();
 }
