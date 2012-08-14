@@ -1,5 +1,8 @@
 #include "filedownloader.h"
 
+#include <QFile>
+#include <QTextStream>
+
 cFileDownloader::cFileDownloader(QUrl url, QObject *parent) :
   QObject(parent)
 {
@@ -20,6 +23,16 @@ cFileDownloader::~cFileDownloader()
 QByteArray cFileDownloader::downloadedData() const
 {
   return m_downloaded_data;
+}
+
+void cFileDownloader::save_to_file(QString file)
+{
+  QFile data(file);
+  if(data.open(QFile::WriteOnly | QFile::Truncate))
+  {
+    QTextStream out(&data);
+    out << m_downloaded_data;
+  }
 }
 
 void cFileDownloader::fileDownloaded(QNetworkReply *pReply)

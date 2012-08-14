@@ -41,7 +41,6 @@ signals:
   
 public slots:
   void process(void);
-  void load_things(void);
 
 private:
   cFileDownloader *m_downloader;

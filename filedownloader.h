@@ -15,6 +15,8 @@ public:
   virtual ~cFileDownloader();
   QByteArray downloadedData() const;
   bool m_has_downloaded;
+
+  void save_to_file(QString file);
 signals:
   void downloaded();
 

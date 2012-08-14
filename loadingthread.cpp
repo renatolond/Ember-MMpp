@@ -20,6 +20,10 @@
  */
 #include "loadingthread.h"
 
+#include <QEventLoop>
+
+#include "sqlite3.h"
+
 #include "filedownloader.h"
 
 cLoadingThread::cLoadingThread()
@@ -81,25 +85,33 @@ void cLoadingThread::process()
 
   emit progress("Loading database...", 70);
   QUrl xmlUrl("http://pcjco.dommel.be/emm-r/updates/commands_base.xml");
-  cFileDownloader *m_downloader = new cFileDownloader(xmlUrl, this);
-  connect(m_downloader, SIGNAL(downloaded()), SLOT(load_things()));
+  m_downloader = new cFileDownloader(xmlUrl, this);
+  {
+    QEventLoop event_loop;
+    emit progress("Downloading database file...", 81);
+    //  connect(m_downloader, SIGNAL(downloaded()), SLOT(load_things()));
+    connect(m_downloader, SIGNAL(downloaded()), &event_loop, SLOT(quit()));
+    event_loop.exec();
+  }
+//  {
+//    //qDebug("Still running...");
+//  }
+
+  m_downloader->save_to_file("InstallTasks.xml");
+
+  sqlite3 *connection;
+  if(sqlite3_open("Media.emm", &connection) != SQLITE_OK)
+  {
+    qDebug("Failed to open database.");
+  }
+
+  emit progress("Setting menus...", 80);
+
+  emit progress("Ok!", 100);
+
+//  emit show_main();
+//  emit close_splash();
+
+//  emit finished();
 }
 
-void cLoadingThread::load_things()
-{
-  //  {
-  //    //qDebug("Still running...");
-  //  }
-
-    int x = 5;
-
-
-    emit progress("Setting menus...", 80);
-
-    emit progress("Ok!", 100);
-
-  //  emit show_main();
-  //  emit close_splash();
-
-    //  emit finished();
-}
