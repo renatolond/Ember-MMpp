@@ -4,12 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core gui network xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Ember-MM-cpp
 TEMPLATE = app
+
+LIBS = -ldl
 
 INCLUDEPATH += deps/boost \
     deps/sqlite3
@@ -20,7 +22,8 @@ SOURCES += main.cpp\
     splashscreen.cpp \
     loadingthread.cpp \
     filedownloader.cpp \
-    deps/sqlite3/sqlite3.c
+    deps/sqlite3/sqlite3.c \
+    emptydatabaseinitializer.cpp
 
 HEADERS  += mainwindow.h \
     settings.h \
@@ -29,7 +32,8 @@ HEADERS  += mainwindow.h \
     loadingthread.h \
     settingsitem.h \
     filedownloader.h \
-    deps/sqlite3/sqlite3.h
+    deps/sqlite3/sqlite3.h \
+    emptydatabaseinitializer.h
 
 FORMS    += mainwindow.ui \
     splashscreen.ui

@@ -18,17 +18,14 @@
  * Ember Media Manager++.  If not, see <http://www.gnu.org/licenses/>.
  * -----------------------------------------------------------------------------
  */
-#ifndef SETTINGSITEM_H
-#define SETTINGSITEM_H
+#ifndef EMPTYDATABASEINITIALIZER_H
+#define EMPTYDATABASEINITIALIZER_H
 
-#include <QString>
-
-struct sSettingItem
+class cEmptyDatabaseInitializer
 {
-  QString default_value;
-  QString name;
-  QString section;
-  QString value;
+public:
+  void read_xml_and_create_tables();
+  cEmptyDatabaseInitializer();
 };
 
-#endif // SETTINGSITEM_H
+#endif // EMPTYDATABASEINITIALIZER_H

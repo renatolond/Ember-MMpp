@@ -25,6 +25,7 @@
 #include "sqlite3.h"
 
 #include "filedownloader.h"
+#include "emptydatabaseinitializer.h"
 
 cLoadingThread::cLoadingThread()
 {
@@ -104,6 +105,9 @@ void cLoadingThread::process()
   {
     qDebug("Failed to open database.");
   }
+
+  cEmptyDatabaseInitializer p;
+  p.read_xml_and_create_tables();
 
   emit progress("Setting menus...", 80);
 
