@@ -25,7 +25,10 @@ SOURCES += main.cpp\
     deps/sqlite3/sqlite3.c \
     emptydatabaseinitializer.cpp \
     factory.cpp \
-    movie.cpp
+    movie.cpp \
+    tvshows.cpp \
+    tvseason.cpp \
+    tvepisodes.cpp
 
 HEADERS  += mainwindow.h \
     settings.h \
@@ -37,7 +40,10 @@ HEADERS  += mainwindow.h \
     deps/sqlite3/sqlite3.h \
     emptydatabaseinitializer.h \
     factory.h \
-    movie.h
+    movie.h \
+    tvshows.h \
+    tvseason.h \
+    tvepisodes.h
 
 FORMS    += mainwindow.ui \
     splashscreen.ui

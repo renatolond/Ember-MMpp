@@ -34,24 +34,37 @@
 #include "emptydatabaseinitializer.h"
 #include "filedownloader.h"
 #include "movie.h"
+#include "tvepisodes.h"
+#include "tvseason.h"
+#include "tvshows.h"
 // End of project headers
 
 namespace nDao
 {
-sqlite3 *cFactory::m_connection;
-sqlite3 *cFactory::m_jobs_connection;
+sqlite3 *cFactory::m_connection = NULL;
+sqlite3 *cFactory::m_jobs_connection = NULL;
 
 void clear_new(void)
 {
   cMovie *movie_dao = cFactory::create_movie_dao();
-  qDebug() << "Failing." << (int)cFactory::get_connection();
   movie_dao->clear_new();
+  delete movie_dao;
+
+  cTvShows *tv_shows_dao = cFactory::create_tvshows_dao();
+  tv_shows_dao->clear_new();
+  delete tv_shows_dao;
+
+  cTvSeason *tv_season_dao = cFactory::create_tvseason_dao();
+  tv_season_dao->clear_new();
+  delete tv_season_dao;
+
+  cTvEpisodes *tv_episodes_dao = cFactory::create_tvepisodes_dao();
+  tv_episodes_dao->clear_new();
+  delete tv_episodes_dao;
 }
 
 cFactory::cFactory(void)
 {
-  m_connection = NULL;
-  m_jobs_connection = NULL;
 }
 
 void cFactory::create_databases(void)
@@ -185,8 +198,22 @@ void cFactory::end_connection_scope(void)
 
 cMovie *cFactory::create_movie_dao()
 {
-  qDebug() << (int) m_connection;
   return new cMovie();
+}
+
+cTvEpisodes *cFactory::create_tvepisodes_dao()
+{
+  return new cTvEpisodes();
+}
+
+cTvSeason *cFactory::create_tvseason_dao()
+{
+  return new cTvSeason();
+}
+
+cTvShows *cFactory::create_tvshows_dao()
+{
+  return new cTvShows();
 }
 
 }

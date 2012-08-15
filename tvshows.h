@@ -18,21 +18,19 @@
  * Ember Media Manager++.  If not, see <http://www.gnu.org/licenses/>.
  * -----------------------------------------------------------------------------
  */
-#ifndef MOVIE_H
-#define MOVIE_H
+#ifndef TVSHOWS_H
+#define TVSHOWS_H
 
 #include "factory.h" // base class
 
-struct sqlite3;
-
 namespace nDao
 {
-class cMovie : cFactory
+class cTvShows : public cFactory
 {
 public:
-  cMovie();
+  cTvShows();
   void clear_new(void);
 };
 }
 
-#endif // MOVIE_H
+#endif // TVSHOWS_H

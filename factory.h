@@ -27,9 +27,15 @@ struct sqlite3;
 
 namespace nDao
 {
+/**
+ * @brief Clear the new flag from some databases: movies, tvshows, tvseason, tveps
+ */
 void clear_new(void);
 
 class cMovie;
+class cTvEpisodes;
+class cTvSeason;
+class cTvShows;
 
 class cFactory
 {
@@ -44,6 +50,9 @@ public:
   static void end_connection_scope(void);
 
   static cMovie* create_movie_dao(void);
+  static cTvEpisodes* create_tvepisodes_dao(void);
+  static cTvSeason* create_tvseason_dao(void);
+  static cTvShows* create_tvshows_dao(void);
   cFactory();
 };
 

@@ -36,7 +36,6 @@ namespace nDao
 cMovie::cMovie() :
   cFactory()
 {
-  qDebug() << "Then..." << cFactory::get_connection();
 }
 
 void cMovie::clear_new()

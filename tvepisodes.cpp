@@ -18,21 +18,49 @@
  * Ember Media Manager++.  If not, see <http://www.gnu.org/licenses/>.
  * -----------------------------------------------------------------------------
  */
-#ifndef MOVIE_H
-#define MOVIE_H
+#include "tvepisodes.h"
 
-#include "factory.h" // base class
+// Start of Qt headers
+#include <QByteArray>
+#include <QDebug>
+#include <QString>
+// End of Qt headers
 
-struct sqlite3;
+// Start of deps headers
+#include "sqlite3.h"
+// End of deps headers
 
 namespace nDao
 {
-class cMovie : cFactory
+cTvEpisodes::cTvEpisodes()
 {
-public:
-  cMovie();
-  void clear_new(void);
-};
 }
 
-#endif // MOVIE_H
+void cTvEpisodes::clear_new()
+{
+  if(cFactory::get_connection() == NULL)
+  {
+    qDebug() << "No connection available." << (int)cFactory::get_connection();
+    return;
+  }
+
+  QString updateQuery = "UPDATE TVEps SET new = false";
+  sqlite3_stmt *statement;
+
+  QByteArray query = updateQuery.toUtf8();
+  if(sqlite3_prepare_v2(cFactory::get_connection(), query.data(), query.size(), &statement, NULL) == SQLITE_OK)
+  {
+    // Execute command in sqlite database
+    if(sqlite3_step(statement) != SQLITE_DONE)
+    {
+      qDebug() << "Statement failed." << sqlite3_errmsg(cFactory::get_connection());
+    }
+
+    if(sqlite3_finalize(statement) != SQLITE_OK)
+    {
+      qDebug("Finalize failed!");
+    }
+    statement = NULL;
+  }
+}
+}
