@@ -18,16 +18,35 @@
  * Ember Media Manager++.  If not, see <http://www.gnu.org/licenses/>.
  * -----------------------------------------------------------------------------
  */
-#ifndef EMPTYDATABASEINITIALIZER_H
-#define EMPTYDATABASEINITIALIZER_H
+#ifndef FACTORY_H
+#define FACTORY_H
+
+class cFileDownloader;
 
 struct sqlite3;
 
-class cEmptyDatabaseInitializer
+namespace nDao
 {
+void clear_new(void);
+
+class cMovie;
+
+class cFactory
+{
+  static sqlite3 *m_connection;
+  static sqlite3 *m_jobs_connection;
+  static void create_databases(void);
+  static void create_jobs_database(void);
+protected:
 public:
-  void read_xml_and_create_tables(sqlite3 *connection);
-  cEmptyDatabaseInitializer();
+  static sqlite3* get_connection();
+  static void begin_connection_scope(void);
+  static void end_connection_scope(void);
+
+  static cMovie* create_movie_dao(void);
+  cFactory();
 };
 
-#endif // EMPTYDATABASEINITIALIZER_H
+}
+
+#endif // FACTORY_H

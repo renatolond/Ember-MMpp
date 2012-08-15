@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Ember-MM-cpp
 TEMPLATE = app
 
-LIBS = -ldl
+#LIBS = -ldl
 
 INCLUDEPATH += deps/boost \
     deps/sqlite3
@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     loadingthread.cpp \
     filedownloader.cpp \
     deps/sqlite3/sqlite3.c \
-    emptydatabaseinitializer.cpp
+    emptydatabaseinitializer.cpp \
+    factory.cpp \
+    movie.cpp
 
 HEADERS  += mainwindow.h \
     settings.h \
@@ -33,7 +35,9 @@ HEADERS  += mainwindow.h \
     settingsitem.h \
     filedownloader.h \
     deps/sqlite3/sqlite3.h \
-    emptydatabaseinitializer.h
+    emptydatabaseinitializer.h \
+    factory.h \
+    movie.h
 
 FORMS    += mainwindow.ui \
     splashscreen.ui

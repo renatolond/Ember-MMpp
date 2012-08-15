@@ -43,7 +43,7 @@ public slots:
   void process(void);
 
 private:
-  cFileDownloader *m_downloader;
+  void load_media(void);
 };
 
 #endif // LOADINGTHREAD_H

@@ -20,12 +20,7 @@
  */
 #include "loadingthread.h"
 
-#include <QEventLoop>
-
-#include "sqlite3.h"
-
-#include "filedownloader.h"
-#include "emptydatabaseinitializer.h"
+#include "factory.h"
 
 cLoadingThread::cLoadingThread()
 {
@@ -85,29 +80,12 @@ void cLoadingThread::process()
   // care of it
 
   emit progress("Loading database...", 70);
-  QUrl xmlUrl("http://pcjco.dommel.be/emm-r/updates/commands_base.xml");
-  m_downloader = new cFileDownloader(xmlUrl, this);
-  {
-    QEventLoop event_loop;
-    emit progress("Downloading database file...", 81);
-    //  connect(m_downloader, SIGNAL(downloaded()), SLOT(load_things()));
-    connect(m_downloader, SIGNAL(downloaded()), &event_loop, SLOT(quit()));
-    event_loop.exec();
-  }
-//  {
-//    //qDebug("Still running...");
-//  }
 
-  m_downloader->save_to_file("InstallTasks.xml");
+  nDao::cFactory::begin_connection_scope();
 
-  sqlite3 *connection;
-  if(sqlite3_open("Media.emm", &connection) != SQLITE_OK)
-  {
-    qDebug("Failed to open database.");
-  }
+  load_media();
 
-  cEmptyDatabaseInitializer p;
-  p.read_xml_and_create_tables();
+  nDao::cFactory::end_connection_scope();
 
   emit progress("Setting menus...", 80);
 
@@ -116,6 +94,11 @@ void cLoadingThread::process()
 //  emit show_main();
 //  emit close_splash();
 
-//  emit finished();
+  //  emit finished();
+}
+
+void cLoadingThread::load_media()
+{
+  nDao::clear_new();
 }
 

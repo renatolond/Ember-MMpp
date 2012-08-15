@@ -20,9 +20,11 @@
  */
 #include "emptydatabaseinitializer.h"
 
+#include "sqlite3.h"
+
 #include <QtXml>
 
-void cEmptyDatabaseInitializer::read_xml_and_create_tables()
+void cEmptyDatabaseInitializer::read_xml_and_create_tables(sqlite3 *connection)
 {
   QFile *file = new QFile("InstallTasks.xml");
 
@@ -55,10 +57,23 @@ void cEmptyDatabaseInitializer::read_xml_and_create_tables()
           if(type == "DB")
           {
             QDomElement execute = command.firstChildElement();
-            QString tagname = execute.tagName();
             QString text = execute.text();
+            QByteArray query = text.toUtf8();
+            sqlite3_stmt *statement;
+            if(sqlite3_prepare_v2(connection, query.data(), query.size(), &statement, NULL) == SQLITE_OK)
+            {
+              // Execute command in sqlite database
+              if(sqlite3_step(statement) != SQLITE_DONE)
+              {
+                qDebug() << "Statement failed." << sqlite3_errmsg(connection);
+              }
 
-            // Execute command in sqlite database
+              if(sqlite3_finalize(statement) != SQLITE_OK)
+              {
+                qDebug("Finalize failed!");
+              }
+              statement = NULL;
+            }
           }
         }
       }
